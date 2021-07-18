@@ -52,7 +52,6 @@ class Card extends React.Component{
 
     let dogObj = {}
 
-
     Promise.all([fetch("https://randomuser.me/api/"),fetch("https://dog.ceo/api/breeds/image/random")])
     // Promise.all([fetch(ranName),fetch(dogImg)])
     .then(res => Promise.all(res.map(res=>res.json()))
@@ -64,7 +63,7 @@ class Card extends React.Component{
                     this.setState(preState => {
                       dogObj.dogId = preState.dogs[0].dogId -1 
                       let keep = preState.dogs.filter((dog,i) =>{
-                        if (i!== 0) return true
+                        if (i!== 2) return true
                         return false
                       } )
                       return {dogs:[dogObj,...keep]}
