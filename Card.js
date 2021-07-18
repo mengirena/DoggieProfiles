@@ -49,19 +49,9 @@ class Card extends React.Component{
   
   handleClickPrev(){
     console.log("clicked")
-    
-    this.setState(preState => {
-      preState.dogs
-      
-    })
 
     let dogObj = {}
-    // const ranName = "https://randomuser.me/api/"
-    // const dogImg = "https://dog.ceo/api/breeds/image/random"
-    
-    // fetch(dogImg)
-    // .then(res=>res.json())
-    // .then(data=>console.log(data))
+
 
     Promise.all([fetch("https://randomuser.me/api/"),fetch("https://dog.ceo/api/breeds/image/random")])
     // Promise.all([fetch(ranName),fetch(dogImg)])
@@ -71,23 +61,18 @@ class Card extends React.Component{
                     console.log("dogImg", data[1].message)
                     dogObj.dogName = data[0].results[0].name.first
                     dogObj.dogImg = data[1].message
-                    dogObj.dogId = 
+                    this.setState(preState => {
+                      dogObj.dogId = preState.dogs[0].dogId -1 
+                      let keep = preState.dogs.filter((dog,i) =>{
+                        if (i!== 0) return true
+                        return false
+                      } )
+                      return {dogs:[dogObj,...keep]}
+                    })
                     console.log(dogObj)
                 }))
 
   }
-  // let name, img
-
-  // fetchName(){
-  //   Promise.all(fetch(ranName),fetch(dogImg))
-  //   .then(res => Promise.all(res.map(res=>res.json()))
-  //               .then(data=>{
-  //                   console.log("ranName",data[0].results[0].name.first)
-  //                   console.log("dogImg", data[1].message)
-  //                   name = data[0].results[0].name.first
-  //                   img = data[1].message
-  //               }))
-  // }
   
   render(){
     let result = []
